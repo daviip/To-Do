@@ -8,6 +8,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var jobsRouter = require('./routes/jobs')
 
+var db = require("./database");
 var app = express();
 
 // view engine setup
@@ -22,7 +23,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/job', jobsRouter)
+app.use('/jobs', jobsRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

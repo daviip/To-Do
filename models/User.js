@@ -1,15 +1,14 @@
-const { defaultConfiguration } = require('express/lib/application');
-const mongoose = require('mongoose');
 const Job = require('../models/Job');
+const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const bcrypt = require("bcryptjs");
 const SALT_WORK_FACTOR = 10;
 
 const UserShema = new Schema({
-    name: {type: String, required: true},
+    name: {type: String, required: true, index: {unique: true}},
     password: {type: String, required: true},
     email: {type: String, required: true},
-    creationdate: {type: Date, default: Date.now},
+    creationdate: {type: Date, default: Date.now}
 })
 
 UserShema.pre('save', function(next){
