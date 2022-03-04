@@ -8,7 +8,12 @@ const UserShema = new Schema({
     name: {type: String, required: true, index: {unique: true}},
     password: {type: String, required: true},
     email: {type: String, required: true},
-    creationdate: {type: Date, default: Date.now}
+    creationdate: {type: Date, default: Date.now},
+    jobs:[{
+        type: Schema.ObjectId,
+        ref: "Job",
+        default : null
+    }]
 })
 
 UserShema.pre('save', function(next){
