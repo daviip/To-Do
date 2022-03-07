@@ -17,8 +17,8 @@ router.get('/all', function (req, res, next) {
 router.post('/all/:id', function (req, res) {
   const { id } = req.params;
   Job.find({ user: id }).sort('-creationdate').exec(function (err, jobs) {
-      if (err) return res.status(500).send(err);
-      res.json(jobs);
+    if (err) return res.status(500).send(err);
+    res.json(jobs);
   })
 })
 
@@ -73,14 +73,15 @@ router.delete('/:id', function (req, res) {
   })
 })
 
-router.put('/all/:id', function (req, res, next) {
+router.delete('/all/:id', function (req, res, next) {
   const { id } = req.params;
   const { jobs } = req.body;
   User.findByIdAndUpdate(id, {
     jobs: []
   }, (err, user) => {
-    Job.findByIdAndDelete(user, (err, job) =>{
-      if(err) return res.status(500).send(err)
+    Job.deleteMany({user:id}, (err, jobs) => {
+      if (err) return res.status(500).send(err);
+      console.log(jobs);
     })
     if (err) return res.status(500).send(err);
     res.send(`User ${ user.name } deleted all jobs`);
