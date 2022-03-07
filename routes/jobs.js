@@ -79,6 +79,9 @@ router.put('/all/:id', function (req, res, next) {
   User.findByIdAndUpdate(id, {
     jobs: []
   }, (err, user) => {
+    Job.findByIdAndDelete(user, (err, job) =>{
+      if(err) return res.status(500).send(err)
+    })
     if (err) return res.status(500).send(err);
     res.send(`User ${ user.name } deleted all jobs`);
   })
